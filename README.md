@@ -10,6 +10,8 @@
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+![Tela inicial do BioéticaRAG](docs/screenshots/inicio.png)
+
 ---
 
 ## 📌 Sobre o projeto
@@ -23,6 +25,16 @@ A base documental cobre as principais resoluções do CNS (466/2012, 510/2016, 4
 - **Análise de projeto** — recebe a descrição de uma pesquisa e retorna uma avaliação ética estruturada
 - **Consulta livre** — responde perguntas sobre as normas com citação das fontes recuperadas
 - **Checklist ético** — gera critérios de conformidade a partir da descrição do projeto
+
+### Demonstração
+
+Análise ética a partir da descrição de um projeto — o sistema consulta a base normativa e gera o parecer com o Claude:
+
+![Análise de projeto](docs/screenshots/analise-projeto.png)
+
+Consulta livre às normas, com sugestões prontas e busca sobre as resoluções indexadas:
+
+![Consulta às normas](docs/screenshots/consulta-normas.png)
 
 ---
 
