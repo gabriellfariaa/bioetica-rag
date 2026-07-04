@@ -1,0 +1,46 @@
+services:
+
+  # ─────────────────────────────────────────────
+  # Serviço principal: interface + motor RAG
+  # ─────────────────────────────────────────────
+  app:
+    build: .
+    container_name: bioetica_rag_app
+    ports:
+      - "8570:8501"
+    env_file:
+      - .env
+    volumes:
+      # docs/      → PDFs das normas (você adiciona aqui)
+      # chroma_db/ → banco vetorial persistido entre reinicializações
+      - ./docs:/app/docs
+      - ./chroma_db:/app/chroma_db
+    restart: unless-stopped
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+
+  # ─────────────────────────────────────────────
+  # Serviço de setup: indexa os PDFs e encerra
+  # Roda automaticamente antes do app subir.
+  # Só reindexará se chroma_db/ estiver vazio.
+  # ─────────────────────────────────────────────
+  setup:
+    build: .
+    container_name: bioetica_rag_setup
+    env_file:
+      - .env
+    volumes:
+      - ./docs:/app/docs
+      - ./chroma_db:/app/chroma_db
+    # Roda o setup apenas se o banco ainda não existir
+    command: >
+      sh -c "
+        if [ -z \"$(ls -A /app/chroma_db 2>/dev/null)\" ]; then
+          echo '>>> Base vetorial não encontrada. Indexando documentos...';
+          python setup_rag.py;
+        else
+          echo '>>> Base vetorial já existe. Pulando indexação.';
+        fi
+      "
+    restart: "no"

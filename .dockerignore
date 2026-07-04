@@ -1,0 +1,26 @@
+# Controle de versão
+.git
+.gitignore
+
+# Ambiente Python local
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv
+venv/
+env/
+
+# Banco vetorial local (será montado como volume)
+chroma_db/
+
+# Variáveis de ambiente reais (nunca vai para a imagem)
+.env
+
+# Documentos (montados como volume)
+docs/
+
+# Artefatos de desenvolvimento
+.DS_Store
+*.log
